@@ -1,0 +1,40 @@
+version: "3"
+services: 
+    
+    jupyterlab:
+        image: jupyter/scipy-notebook
+        restart: always
+        ports:
+            - "8888:8888"
+        volumes:
+            - ./data:/data
+            - ./notebooks:/notebooks
+        networks: 
+            - so_final_network
+        entrypoint: sh -c 'jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --notebook-dir=/notebooks --allow-root'
+
+
+    mysqldb:
+        image: mysql:5.7
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: 123
+        container_name: mysql_final
+        volumes:
+            - ./init:/docker-entrypoint-initdb.d/:ro
+        ports:
+            - 3306:3306
+        networks:
+            - so_final_network
+    
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+        - 8383:8080
+        networks: 
+        - so_final_network
+
+networks:
+    so_final_network:
+        driver: "bridge"
