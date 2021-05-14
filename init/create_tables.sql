@@ -2,13 +2,12 @@ CREATE DATABASE finaldb;
 USE finaldb;
 
 CREATE TABLE IF NOT EXISTS leads(
-    lead_id INT AUTO_INCREMENT,
-    id_file INT NOT NULL,
+    id INT,
     nombre VARCHAR(255),
     telefono VARCHAR(255),
     fecha DATE,
     ciudad VARCHAR(255),
-    productor_id INT NOT NULL,
+    productor_id INT,
     fechahora_ingesta TIMESTAMP,
     PRIMARY KEY (lead_id)
 );
@@ -19,5 +18,5 @@ CREATE TABLE IF NOT EXISTS buyers(
     monto INT,
     fechahora_ingesta TIMESTAMP,
     FOREIGN KEY (lead_id) 
-        REFERENCES leads(lead_id)
+        REFERENCES leads(id)
 );
