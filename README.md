@@ -3,7 +3,7 @@ Es un problema de sincronización de multiprocesos. Hay dos tipos de procesos, p
 
 En este proyecto los productores es dado por el archivo `compradores.csv`, los consumidores y el tamaño del buffer son definidos por el usuario a traves de un argumento en la linea de comando.
 
-El programa tiene dos formas de ejecución; con alternancia y sin alternacia. Con alternancia los productores van a trabajar hasta llenar el buffer y después los consumidores van a trabajar hasta vaciarlo, sin alternacia los productores y consumidores van a correr en paralelo.
+El programa tiene dos formas de ejecución; con alternancia y sin alternacia. Con alternancia los productores van a trabajar hasta llenar el buffer y después los consumidores van a trabajar hasta vaciarlo, sin alternacia los productores y consumidores van a correr en simultaneo.
 
 ## Instrucciones para correr
 ### Como notebook
