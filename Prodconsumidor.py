@@ -6,15 +6,7 @@ from sqlalchemy import Column, String, Integer, Date, ForeignKey
 from datetime import datetime
 from contextlib import contextmanager
 
-import csv
-import threading
-import time
-import logging
-import random
-import queue
-import random
-import unidecode
-import sys
+import csv, threading, time, logging, random, queue, unidecode, sys
 
 @contextmanager
 def session_scope():
@@ -32,6 +24,7 @@ def session_scope():
 # slalchemy ORM
 Base = declarative_base()
 
+# Define el objeto de la tabla `leads` para el ORM
 class Lead(Base):
   __tablename__ = 'leads'
 
@@ -51,8 +44,7 @@ class Lead(Base):
     self.ciudad = unidecode.unidecode(ciudad)
     self.productor_id = int(productor_id)
 
-            
-
+# Define el objeto de la tabla `buyers` para el ORM
 class Buyer(Base):
   __tablename__ = 'buyers'
   id = Column(Integer, primary_key=True)
@@ -178,21 +170,16 @@ class ConsumerThread(threading.Thread):
 
 
 if __name__ == "__main__":
-
   # db
   engine = create_engine("mysql+pymysql://root:123@localhost:3306/finaldb")
   session_factory = sessionmaker(bind=engine)
   Session = scoped_session(session_factory)
-
-
 
   args = list(map(lambda a: a.split('='), sys.argv))
   BUF_SIZE = int(args[1][1])
   n_productores = int(args[2][1])
   path_personas = "./notebooks/data/personas.csv"
   path_compradores= args[3][1]
-
-
 
   alternancia = bool(args[4][1] == "1")
   x = lambda x: logging.DEBUG if x == "1" else logging.WARNING
