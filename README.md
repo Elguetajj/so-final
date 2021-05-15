@@ -1,4 +1,3 @@
-# so-final
 # Problema Productor-Consumidor | Proyecto Final
 Es un problema de sincronización de multiprocesos. Hay dos tipos de procesos, productores y consumidores que consumen un buffer de tamaño limitado compartido.
 
