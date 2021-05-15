@@ -7,7 +7,7 @@ El programa tiene dos formas de ejecución; con alternancia y sin alternacia. Co
 
 ## Instrucciones para correr
 ### Como notebook
-1. 
+1. Correr el siguiente comando:
 ```bash
 docker-compose up
 ```
@@ -15,7 +15,7 @@ docker-compose up
 3. Abrir el archivo `Untitled.pynb`
 
 ### Como CLI
-1. 
+1. Correr el siguiente comando:
 ```bash
 docker-compose up
 ```
