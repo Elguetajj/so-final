@@ -133,7 +133,7 @@ class ProducerThread(threading.Thread):
       elif(alternancia):
         produce_event.clear()
         logging.debug('Producer event Cleared')
-        time.sleep(2.4)
+        time.sleep(5)
         consume_event.set()
 
     logging.debug(f'{self.name} exited')
@@ -170,7 +170,7 @@ class ConsumerThread(threading.Thread):
       elif(alternancia and not personas.empty()):
           consume_event.clear()
           logging.debug('Consumer event cleared')
-          time.sleep(2.4)
+          time.sleep(5)
           produce_event.set()
 
     logging.debug(f'{self.name} exited')
@@ -192,7 +192,9 @@ if __name__ == "__main__":
   n_productores = int(args[2][1])
   path_personas = "./notebooks/data/personas.csv"
   path_compradores= args[3][1]
-  alternancia = bool(args[4][1] == 1)
+  alternancia = bool(args[4][1] == "1")
+  x = lambda x: logging.DEBUG if x == "1" else logging.WARNING
+  debug_level = x(args[5][1])
   q = queue.Queue(maxsize=BUF_SIZE)
   personas = Random_access_list(path_personas)
   compradores = list(csv.DictReader(open(path_compradores,encoding="utf8"),["id","comprador","bid_min","bid_max"]))[1:]
@@ -202,12 +204,16 @@ if __name__ == "__main__":
 
   consume_event = threading.Event()
 
-  logging.basicConfig(level=logging.WARNING,
+  logging.basicConfig(level=debug_level,
             format='(%(threadName)-9s) %(message)s',)
 
   counter = Counter(len(personas.values))
 
   threads = []
+
+  with engine.connect() as con:
+    con.execute("delete from buyers;")
+    con.execute("delete from  leads;")
 
   start = time.time()
 
